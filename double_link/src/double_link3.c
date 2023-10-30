@@ -30,24 +30,33 @@ void remove_element(list_t **list, int index)
     }
 }
 
-void insert_element(list_t **list, int index, void *data, enum type type)
+static void insert(list_t **list, void *data, enum type type, int index)
 {
-    list_t *tmp = *list;
     list_t *new = malloc(sizeof(list_t));
+    list_t *tmp = *list;
 
     new->data = data;
     new->type = type;
+    for (int i = 0; tmp->next != NULL && i < index; tmp = tmp->next)
+        i++;
+    new->next = tmp;
+    new->prev = tmp->prev;
+    tmp->prev->next = new;
+    tmp->prev = new;
+}
+
+void insert_element(list_t **list, int index, void *data, enum type type)
+{
+    if (index < 0 || index > list_len(*list)) {
+        write(STDERR_FILENO, "INDEX ERROR\n", 12);
+        return;
+    }
     if (index == 0) {
         push_front(list, data, type);
-    } else if (index == list_len(*list) - 1) {
+    } else if (index == list_len(*list)) {
         push_back(list, data, type);
     } else {
-        for (int i = 0; tmp->next != NULL && i < index; tmp = tmp->next)
-            i++;
-        new->next = tmp;
-        new->prev = tmp->prev;
-        tmp->prev->next = new;
-        tmp->prev = new;
+        insert(list, data, type, index);
     }
 }
 
@@ -74,7 +83,7 @@ int main(int argc, char *argv[])
     remove_element(&list, 0);
     print_list(list, print, false);
     printf("___________________\n");
-    insert_element(&list, 1, &e, INT);
+    insert_element(&list, -1, &e, INT);
     print_list(list, print, false);
     destroy_list(list);
     return 0;
