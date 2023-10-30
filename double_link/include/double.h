@@ -23,6 +23,7 @@ void print_list(list_t *list, void (*print)(), bool rev);
 void push_back(list_t **list, void *data, enum type type);
 void push_front(list_t **list, void *data, enum type type);
 void insert_element(list_t **list, int index, void *data, enum type type);
+enum type get_type_by_index(list_t *list, int i);
 int list_len(list_t *list);
 int get_index(list_t *list, int (*cmp)(), void *data_ref);
 void *get_data_by_index(list_t *list, int index);

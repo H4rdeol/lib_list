@@ -60,6 +60,29 @@ void insert_element(list_t **list, int index, void *data, enum type type)
     }
 }
 
+enum type get_type_by_index(list_t *list, int i)
+{
+    int index = 0;
+
+    if (i >= list_len(list) || list == NULL) {
+        write(STDERR_FILENO, "OUT OF RANGE\n", 13);
+        return NONE;
+    }
+    if (i >= 0) {
+        for (; list != NULL && index < i; list = list->next)
+            index++;
+    } else {
+        if (i < -list_len(list)) {
+            write(STDERR_FILENO, "OUT OF RANGE\n", 13);
+            return NONE;
+        }
+        for (; list->next != NULL; list = list->next);
+        for (; list != NULL && index > i + 1; list = list->prev)
+            index--;
+    }
+    return list->type;
+}
+
 void print(void *data)
 {
     printf("%d\n", *(int *)data);

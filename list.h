@@ -16,7 +16,8 @@ enum type {
     INT,
     STR,
     CHAR,
-    OTHER
+    OTHER,
+    NONE = -1
 };
 
 #endif //LIB_LIST_LIST_H
