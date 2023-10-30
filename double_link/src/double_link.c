@@ -44,7 +44,7 @@ void *pop_front(list_t **list)
     list_t *tmp = *list;
 
     if (*list == NULL) {
-        write(2, "EMPTY LIST\n", 11);
+        write(STDERR_FILENO, "EMPTY LIST\n", 11);
         return data;
     }
     data = (*list)->data;
@@ -61,7 +61,7 @@ void *pop_back(list_t **list)
     void *data = NULL;
 
     if (*list == NULL) {
-        write(2, "EMPTY LIST\n", 11);
+        write(STDERR_FILENO, "EMPTY LIST\n", 11);
         return data;
     }
     for (; tmp->next != NULL; tmp = tmp->next);
