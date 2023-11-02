@@ -83,35 +83,6 @@ enum type get_type_by_index(list_t *list, int i)
     return list->type;
 }
 
-void print(void *data)
-{
-    printf("%d\n", *(int *)data);
-}
-
-int main(int argc, char *argv[])
-{
-    int a = 0;
-    int b = 1;
-    int c = 2;
-    int d = 3;
-    int e = 7;
-    list_t *list = NULL;
-
-    push_back(&list, &a, INT);
-    push_back(&list, &b, INT);
-    push_back(&list, &c, INT);
-    push_back(&list, &d, INT);
-    print_list(list, print, false);
-    printf("___________________\n");
-    remove_element(&list, 0);
-    print_list(list, print, false);
-    printf("___________________\n");
-    insert_element(&list, -1, &e, INT);
-    print_list(list, print, false);
-    destroy_list(list);
-    return 0;
-}
-
 /*
 **
 ** Il reste à faire les tests
