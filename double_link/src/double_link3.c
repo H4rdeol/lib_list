@@ -114,6 +114,6 @@ int main(int argc, char *argv[])
 
 /*
 **
-** Il reste à faire le la doc, les tests
+** Il reste à faire les tests
 **
 */
