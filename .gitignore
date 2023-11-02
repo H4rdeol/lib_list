@@ -1,1 +1,5 @@
 .idea
+*.gcno
+*.gcda
+unit_test
+liblist.a
