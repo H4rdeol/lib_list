@@ -18,7 +18,10 @@ TEST_SRC	=	tests/test_push_back.c				\
 				tests/test_print_list.c				\
 				tests/test_get_data_by_index.c		\
 				tests/test_get_element_by_index.c	\
-				tests/test_get_index.c
+				tests/test_get_index.c				\
+				tests/test_remove_element.c			\
+				tests/test_insert_element.c			\
+				tests/test_get_type_by_index.c
 
 OBJ	=	$(SRC:.c=.o)
 
