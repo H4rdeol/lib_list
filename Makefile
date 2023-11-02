@@ -42,4 +42,9 @@ test_run: unit_test
 	./unit_test
 	gcovr --exclude tests/
 
+test_run_all: unit_test
+	./unit_test
+	gcovr --exclude tests/
+	gcovr --exclude tests/ --branch
+
 re: fclean all
