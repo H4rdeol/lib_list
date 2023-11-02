@@ -33,7 +33,7 @@ Test(pop_back, pop_back_in_1_list)
 
     cr_assert_eq(*(int *)pop_back(&list), 1);
     cr_assert_null(list);
-    destroy_list(list);
+    destroy_list(&list);
 }
 
 Test(pop_back, pop_back_str_in_2_list)
@@ -50,6 +50,6 @@ Test(pop_back, pop_back_str_in_2_list)
     cr_assert_null(list->next);
     cr_assert_eq(*(int *)list->data, 1);
     free(str);
-    destroy_list(list);
+    destroy_list(&list);
 }
 

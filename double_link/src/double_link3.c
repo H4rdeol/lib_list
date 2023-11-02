@@ -6,7 +6,6 @@
 */
 
 #include "../include/double.h"
-#include <stdio.h>
 
 void remove_element(list_t **list, int index)
 {
@@ -16,8 +15,9 @@ void remove_element(list_t **list, int index)
     if (index == 0) {
         *list = (*list)->next;
         (*list)->prev = NULL;
-        free(trash);
-    } else if (index == list_len(*list) - 1) {
+        return free(trash);
+    }
+    if (index == list_len(*list) - 1) {
         for (; tmp->next != NULL; tmp = tmp->next);
         tmp->prev->next = NULL;
         free(tmp);

@@ -27,7 +27,7 @@ Test(pop_front, pop_front_in_1_list)
 
     cr_assert_eq(*(int *)pop_front(&list), 1);
     cr_assert_null(list);
-    destroy_list(list);
+    destroy_list(&list);
 }
 
 Test(pop_front, pop_front_str_in_2_list)
@@ -44,6 +44,6 @@ Test(pop_front, pop_front_str_in_2_list)
     cr_assert_null(list->next);
     cr_assert_eq(*(int *)list->data, 1);
     free(str);
-    destroy_list(list);
+    destroy_list(&list);
 }
 

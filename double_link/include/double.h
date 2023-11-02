@@ -26,12 +26,12 @@ typedef struct double_linked_list {
 } list_t;
 
 /*!
- * \fn void destroy_list(list_t *list)
+ * \fn void destroy_list(list_t **list)
  * \brief Free all the list element.
  *
  * \param list is the list to destroy.
 */
-void destroy_list(list_t *list);
+void destroy_list(list_t **list);
 /*!
  *  \fn void remove_element(list_t **list, int index)
  *  \brief Find the element at the index given in parameter and
@@ -43,16 +43,16 @@ void destroy_list(list_t *list);
 */
 void remove_element(list_t **list, int index);
 /*!
- *  \fn void print_list(list_t *list, void (*print)(), bool rev)
+ *  \fn void print_list(list_t *list, void (*print)(list_t *), bool rev)
  *  \brief Print all element in your list.
  *  \version 2.0v
  *
  *  \param list is the head of your list.
  *  \param print() is the function to use for print the data (void *) in
- *     your nodes.
+ *     your nodes (the function take an entire node).
  *  \param rev false for print from the head and true from the queue.
 */
-void print_list(list_t *list, void (*print)(), bool rev);
+void print_list(list_t *list, void (*print)(list_t *), bool rev);
 /*!
  * \fn void push_back(list_t *list, void *data, enum type type)
  * \brief Add a node at the end of the list given. (Useful for queue).
@@ -102,7 +102,7 @@ enum type get_type_by_index(list_t *list, int i);
 */
 int list_len(list_t *list);
 /*!
- * \fn int get_index(list_t *list, int (*cmp)(), void *data_ref)
+ * \fn int get_index(list_t *list, int (*cmp)(void *, void *), void *data_ref)
  * \brief Return the index of the first element equal to data_ref.
  * \version 2.0v
  *
@@ -110,7 +110,7 @@ int list_len(list_t *list);
  * \param cmp the function to compare data.
  * \param data_ref data reference for compare.
 */
-int get_index(list_t *list, int (*cmp)(), void *data_ref);
+int get_index(list_t *list, int (*cmp)(void *, void *), void *data_ref);
 /*!
  * \fn void *get_data_by_index(list_t *list, int index);
  * \brief Give the data in the node at index position.

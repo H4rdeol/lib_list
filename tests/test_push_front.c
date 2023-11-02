@@ -19,7 +19,7 @@ Test(push_front, push_front_in_empty_list)
     cr_assert_eq(*(int *)list->data, 0);
     cr_assert_null(list->next);
     cr_assert_null(list->prev);
-    destroy_list(list);
+    destroy_list(&list);
 }
 
 Test(push_front, push_front_in_1_list)
@@ -33,7 +33,7 @@ Test(push_front, push_front_in_1_list)
     cr_assert_eq(*(int *)list->data, 0);
     cr_assert_eq(*(int *)list->next->data, 1);
     cr_assert_null(list->prev);
-    destroy_list(list);
+    destroy_list(&list);
 }
 
 Test(push_front, push_str_in_2_list)
@@ -52,5 +52,5 @@ Test(push_front, push_str_in_2_list)
     cr_assert_eq(*(int *)list->next->next->prev->data, 0);
     free(str);
     cr_assert_null(list->prev);
-    destroy_list(list);
+    destroy_list(&list);
 }
