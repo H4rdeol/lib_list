@@ -6,23 +6,23 @@
 */
 
 #include "../include/double.h"
-#include <stdio.h>
 
 void remove_element(list_t **list, int index)
 {
     list_t *tmp = *list;
-    list_t *trash = *list;
 
+    if (index < 0 || index >= list_len(*list)) {
+        write(STDERR_FILENO, "INDEX ERROR\n", 12);
+        return;
+    }
     if (index == 0) {
-        *list = (*list)->next;
-        (*list)->prev = NULL;
-        free(trash);
-    } else if (index == list_len(*list) - 1) {
-        for (; tmp->next != NULL; tmp = tmp->next);
-        tmp->prev->next = NULL;
-        free(tmp);
+        pop_front(list);
+        return;
+    }
+    if (index == list_len(*list) - 1) {
+        pop_back(list);
     } else {
-        for (int i = 0; tmp->next != NULL && i < index; tmp = tmp->next)
+        for (int i = 0; i < index; tmp = tmp->next)
             i++;
         tmp->prev->next = tmp->next;
         tmp->next->prev = tmp->prev;
@@ -37,7 +37,7 @@ static void insert(list_t **list, void *data, enum type type, int index)
 
     new->data = data;
     new->type = type;
-    for (int i = 0; tmp->next != NULL && i < index; tmp = tmp->next)
+    for (int i = 0; i < index; tmp = tmp->next)
         i++;
     new->next = tmp;
     new->prev = tmp->prev;
@@ -69,7 +69,7 @@ enum type get_type_by_index(list_t *list, int i)
         return NONE;
     }
     if (i >= 0) {
-        for (; list != NULL && index < i; list = list->next)
+        for (; index < i; list = list->next)
             index++;
     } else {
         if (i < -list_len(list)) {
@@ -77,14 +77,8 @@ enum type get_type_by_index(list_t *list, int i)
             return NONE;
         }
         for (; list->next != NULL; list = list->next);
-        for (; list != NULL && index > i + 1; list = list->prev)
+        for (; index > i + 1; list = list->prev)
             index--;
     }
     return list->type;
 }
-
-/*
-**
-** Il reste à faire les tests
-**
-*/

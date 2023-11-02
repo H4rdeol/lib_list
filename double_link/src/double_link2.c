@@ -7,26 +7,29 @@
 
 #include "../include/double.h"
 
-void destroy_list(list_t *list)
+void destroy_list(list_t **list)
 {
     list_t *tmp;
 
-    while (list) {
-        tmp = list;
-        list = list->next;
+    while (*list) {
+        tmp = *list;
+        *list = (*list)->next;
         free(tmp);
     }
+    *list = NULL;
 }
 
-void print_list(list_t *list, void (*print)(), bool rev)
+void print_list(list_t *list, void (*print)(list_t *), bool rev)
 {
     if (rev) {
+        if (list == NULL)
+            return;
         for (;list->next != NULL; list = list->next);
         for (;list != NULL; list = list->prev)
-            print(list->data);
+            print(list);
     } else {
         for (; list != NULL; list = list->next)
-            print(list->data);
+            print(list);
     }
 }
 
@@ -39,7 +42,7 @@ void *get_data_by_index(list_t *list, int i)
         return NULL;
     }
     if (i >= 0) {
-        for (; list != NULL && index < i; list = list->next)
+        for (; index < i; list = list->next)
             index++;
     } else {
         if (i < -list_len(list)) {
@@ -47,7 +50,7 @@ void *get_data_by_index(list_t *list, int i)
             return NULL;
         }
         for (; list->next != NULL; list = list->next);
-        for (; list != NULL && index > i + 1; list = list->prev)
+        for (; index > i + 1; list = list->prev)
             index--;
     }
     return list->data;
@@ -62,7 +65,7 @@ list_t *get_element_by_index(list_t *list, int i)
         return NULL;
     }
     if (i >= 0) {
-        for (; list != NULL && index < i; list = list->next)
+        for (; index < i; list = list->next)
             index++;
     } else {
         if (i < -list_len(list)) {
@@ -70,13 +73,13 @@ list_t *get_element_by_index(list_t *list, int i)
             return NULL;
         }
         for (; list->next != NULL; list = list->next);
-        for (; list != NULL && index > i + 1; list = list->prev)
+        for (; index > i + 1; list = list->prev)
             index--;
     }
     return list;
 }
 
-int get_index(list_t *list, int (*cmp)(), void *data_ref)
+int get_index(list_t *list, int (*cmp)(void *, void *), void *data_ref)
 {
     int index = 0;
 
