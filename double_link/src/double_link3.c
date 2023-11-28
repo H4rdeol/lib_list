@@ -7,26 +7,27 @@
 
 #include "../include/double.h"
 
-void remove_element(list_t **list, int index)
+void *remove_element(list_t **list, int index)
 {
     list_t *tmp = *list;
+    void *data = NULL;
 
     if (index < 0 || index >= list_len(*list)) {
         write(STDERR_FILENO, "INDEX ERROR\n", 12);
-        return;
+        return NULL;
     }
     if (index == 0) {
-        pop_front(list);
-        return;
+        return pop_front(list);
     }
     if (index == list_len(*list) - 1) {
-        pop_back(list);
+        return pop_back(list);
     } else {
         for (int i = 0; i < index; tmp = tmp->next)
             i++;
         tmp->prev->next = tmp->next;
         tmp->next->prev = tmp->prev;
-        free(tmp);
+        data = tmp->data;
+        return free(tmp), data;
     }
 }
 

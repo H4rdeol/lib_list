@@ -8,7 +8,24 @@
 #ifndef LIB_LIST_DOUBLE_H
     #define LIB_LIST_DOUBLE_H
 
-    #include "../../list.h"
+    #include <stdlib.h>
+    #include <unistd.h>
+    #include <stdbool.h>
+
+/*!
+ * \enum type
+ * \brief Constant of type
+ * \version 2.0v
+ *
+ * type is useful to know the type of data in a node if it is a common type.
+*/
+enum type {
+    INT, /*!< Data is an int */
+    STR, /*!< Data is a array of char */
+    CHAR, /*!< Data is a char */
+    OTHER, /*!< The type of the data is too specific */
+    NONE = -1 /*!< Use it juste for error case */
+};
 
 /*!
  * \struct list_t
@@ -41,7 +58,7 @@ void destroy_list(list_t **list);
  *  \param list the address of the head of the list
  *  \param index the index of the element to remove
 */
-void remove_element(list_t **list, int index);
+void *remove_element(list_t **list, int index);
 /*!
  *  \fn void print_list(list_t *list, void (*print)(list_t *), bool rev)
  *  \brief Print all element in your list.

@@ -32,6 +32,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)
 	cp $(NAME) ../
+	cp double_link/include/double.h ../../include
 
 clean:
 	rm -rf $(OBJ)
